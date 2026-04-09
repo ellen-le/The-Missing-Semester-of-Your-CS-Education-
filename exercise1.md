@@ -1,0 +1,1 @@
+1.本课程要求你使用类 Unix 的 Shell，如 Bash 或 ZSH 。若你在 Linux 或 macOS 上，无需额外设置。若你在 Windows 上，请确认你用的不是 cmd.exe 或 PowerShell；你可以使用 Windows Subsystem for Linux 或 Linux 虚拟机来获得 Unix 风格的命令行工具。要确认当前 Shell 是否合适，可运行 echo $SHELL；若输出类似 /bin/bash 或 /usr/bin/zsh ，就说明没问题。
