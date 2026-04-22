@@ -1,0 +1,9 @@
+ls: cannot access '/nonexistent': No such file or directory
+/tmp:
+mcp-SRR0Dm
+snap-private-tmp
+systemd-private-b3867f6584e2495aaabdf855f20ff012-polkit.service-JmrMZG
+systemd-private-b3867f6584e2495aaabdf855f20ff012-systemd-logind.service-K431RN
+systemd-private-b3867f6584e2495aaabdf855f20ff012-systemd-resolved.service-jy0NQs
+systemd-private-b3867f6584e2495aaabdf855f20ff012-systemd-timesyncd.service-Kjh3ei
+systemd-private-b3867f6584e2495aaabdf855f20ff012-wsl-pro.service-RF1lzG
