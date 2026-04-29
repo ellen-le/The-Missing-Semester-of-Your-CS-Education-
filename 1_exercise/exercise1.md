@@ -192,9 +192,6 @@ echo "Full log: $LOGFILE"
 ```
 
 ### 使用管道找出你「home 目录」中最常见的 5 种文件扩展名。（提示：组合 find 、grep / sed / awk、sort、uniq -c 以及 head）
-
-
-
 sed 是 stream editor（流编辑器） 的缩写，最早设计用来对输入流中的文本进行自动化处理，而不仅仅是单个文件。
 sed 's/A/B'寻找符合A规则的内容，将其强行B的内容
 sed 's/.*\.//' `.`表示任意字符 `*`表示前面字符可以出现无数次，其实就是.前面的所有内容，都替换成空，即保留尾缀。
@@ -237,4 +234,20 @@ jq就是处理json的工具，该网站有一堆json数据。
 答案:curl -s https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json | jq '.[] | select(.version > 6) | .name '
 ![alt text](image-6.png)
 ### awk 可以按列值过滤行并改写输出。例如，awk '$3 ~ /pattern/ {$4=""; print}' 会只输出第三列匹配 pattern 的行，并省略第四列。请写一个 awk 命令：只输出第二列大于 100 的行，并交换第一列和第三列。可用这条命令测试：printf 'a 50 x\nb 150 y\nc 200 z\n'
-关于awk的笔记![alt text](image-7.png)
+grep是过滤器（找出行）sed编辑字，awk操纵行列
+关于awk的笔记![alt text](image-7.png)  
+-F的使用方法是后面跟着想要筛选的分隔符
+awk是用来编辑文本内容的，awk 'condition {动作}'
+gawk and awk are the same thing
+答案:printf 'a 50 x\nb 150 y\nc 200 z\n' | awk '$2 > 100 {print $3, $2, $1}'(remember ",")（根据第二列的数去选出自己想要的结果，如果不想要哪一行也可以如题目所示直接让其为空白）
+
+### 拆解讲义中的 SSH 日志处理管道：每一步分别做了什么？然后仿照它构建一个管道，从 ~/.bash_history（或 ~/.zsh_history）中找出你最常使用的 Shell 命令。
+```
+ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
+  | sed -E 's/.*Disconnected from .* user (.*) [^ ]+ port.*/\1/' \
+  | sort | uniq -c \
+  | sort -nk1,1 | tail -n10 \
+  | awk '{print $2}' | paste -sd,
+postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
+```
+![alt text](image-8.png)
