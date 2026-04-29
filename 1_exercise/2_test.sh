@@ -1,24 +1,21 @@
 #!/bin/bash
-set -euo pipefail
-
-# Start CPU stress in background
-stress --cpu 8 &
-STRESS_PID=$!
+set -uo pipefail
+# bash脚本的"安全开关"-e:任何一个错误脚本停止运行  
+# -u:如果使用没定义的变量会报错，pipfail:只要管道|中的任何一段失败，整个命令就算失败。
+LOGFILE="test_runs_$(date +%s).log"
 
 # Setup log file
-LOGFILE="test_runs_$(date +%s).log"
-echo "Logging to $LOGFILE"
+echo "Logging to $LOGFILE" 
 
 # Run tests until one fails
 RUN=1
-while cargo test my_test > "$LOGFILE" 2>&1; do
-    echo "Run $RUN passed"
+while "$@" > "$LOGFILE" 2>&1; do 
+    echo "Run $RUN passed" 
     ((RUN++))
 done
 
 # Cleanup and report
-kill $STRESS_PID
 echo "Test failed on run $RUN"
-echo "Last 20 lines of output:"
-tail -n 20 "$LOGFILE"
+echo "Last 5 lines of output:"
+tail -n 5 "$LOGFILE"
 echo "Full log: $LOGFILE"

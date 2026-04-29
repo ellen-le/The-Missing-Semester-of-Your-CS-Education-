@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -f notes.txt]; then
+	echo "This is a file."
+else
+	echo "This is not a file."
+fi
+
+# 检查 1 号水管（stdout）是不是连着一个终端（屏幕）
+if [ -t /dev/stdout ]; then
+    echo "正在向屏幕输出，我要变漂亮！"
+else
+    echo "正在向文件输出，我保持低调。"
+fi
+
+echo "脚本名是：$0"
+echo "第一个参数是：$1"
+echo "第二个参数是：$2"
